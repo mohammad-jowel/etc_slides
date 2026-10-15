@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>volunteer</title>
+  <style>
+    html,body { margin:0; height:100%; overflow:hidden; background:transparent }
+    svg { display:block }
+    text { font-family:Impact,Arial,sans-serif; font-weight:bold; fill:#14130F }
+    .hand { transform-origin:260px 540px; animation:wave 1.6s ease-in-out infinite }
+    @keyframes wave{0%,100%{transform:rotate(-12deg)}
+    50% { transform:rotate(12deg) }
+    }
+    .q { animation:fl 2.4s ease-in-out infinite }
+    .q.b { animation-delay:.8s }
+    .q.c { animation-delay:1.6s }
+    @keyframes fl{0%,100%{transform:translateY(0)}
+    50% { transform:translateY(-18px) }
+    }
+    .st { transform-origin:110px 120px; animation:pu 1.8s ease-in-out infinite }
+    @keyframes pu{0%,100%{transform:scale(1)}
+    50% { transform:scale(1.12) }
+    }
+    .rg { fill:none; stroke:#14130F; stroke-width:5; transform-origin:110px 120px; animation:rg 1.8s ease-out infinite }
+    @keyframes rg{0%{transform:scale(.9);opacity:.9}
+    100% { transform:scale(1.8); opacity:0 }
+    }
+  </style>
+</head>
+<body>
+  <svg width="520" height="620" viewBox="0 0 520 620">
+  <circle class="rg" cx="110" cy="120" r="70"/>
+  <g class="st">
+  <circle cx="110" cy="120" r="70" fill="#E5372B" stroke="#14130F" stroke-width="6"/>
+  <g fill="none" stroke="#EFE7D3" stroke-width="8" stroke-linecap="round"><path d="M82 100c12 14 12 28 0 42"/><path d="M110 90c16 18 16 48 0 66"/><path d="M138 80c20 24 20 64 0 90"/></g></g>
+  <g class="hand">
+  <rect x="196" y="215" width="30" height="170" rx="15" fill="#EFE7D3" stroke="#14130F" stroke-width="6"/>
+  <rect x="230" y="180" width="30" height="205" rx="15" fill="#EFE7D3" stroke="#14130F" stroke-width="6"/>
+  <rect x="264" y="195" width="30" height="190" rx="15" fill="#EFE7D3" stroke="#14130F" stroke-width="6"/>
+  <rect x="298" y="240" width="30" height="145" rx="15" fill="#EFE7D3" stroke="#14130F" stroke-width="6"/>
+  <rect x="190" y="330" width="146" height="150" rx="46" fill="#EFE7D3" stroke="#14130F" stroke-width="6"/>
+  <rect x="132" y="350" width="30" height="110" rx="15" transform="rotate(-38 147 405)" fill="#EFE7D3" stroke="#14130F" stroke-width="6"/>
+  <rect x="215" y="455" width="96" height="110" rx="14" fill="#EFE7D3" stroke="#14130F" stroke-width="6"/></g>
+  <text class="q" x="360" y="150" font-size="110">?</text>
+  <text class="q b" x="430" y="300" font-size="80">?</text>
+  <text class="q c" x="60" y="330" font-size="90">?</text></svg>
+</body>
+</html>

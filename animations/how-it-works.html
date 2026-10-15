@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>how-it-works</title>
+  <style>
+    html,body { margin:0; height:100%; overflow:hidden; background:transparent }
+    svg { display:block }
+    text { font-family:Arial,Helvetica,sans-serif; font-weight:bold; fill:#EFE7D3 }
+    .fl { fill:none; stroke:#FFD21F; stroke-width:5; stroke-dasharray:16 14; stroke-linecap:round; animation:dm 1s linear infinite,fo 10s ease-in-out infinite }
+    @keyframes dm{to{stroke-dashoffset:-30}
+    }
+    @keyframes fo{0%,6%{opacity:0}
+    12%,92% { opacity:1 }
+    100% { opacity:0 }
+    }
+    .pw { transform-box:fill-box; transform-origin:0 50%; animation:pw 10s ease-in-out infinite }
+    @keyframes pw{0%,20%{transform:scaleX(0)}
+    52%,94% { transform:scaleX(1) }
+    100% { transform:scaleX(0) }
+    }
+    .cp { fill:#5C584C; animation:cp 10s ease-in-out infinite }
+    @keyframes cp{0%,54%{fill:#5C584C}
+    60%,94% { fill:#FFD21F }
+    100% { fill:#5C584C }
+    }
+    .pk { fill:#3DDC84; opacity:0; animation:pk 10s linear infinite }
+    .pk.b { animation-delay:.5s }
+    .pk.c { animation-delay:1s }
+    @keyframes pk{0%,64%{opacity:0;transform:translateX(0)}
+    66% { opacity:1; transform:translateX(0) }
+    86% { opacity:1; transform:translateX(-560px) }
+    88%,100% { opacity:0; transform:translateX(-560px) }
+    }
+    .ok { opacity:0; animation:ok 10s ease-in-out infinite }
+    @keyframes ok{0%,86%{opacity:0}
+    90%,95% { opacity:1 }
+    100% { opacity:0 }
+    }
+  </style>
+</head>
+<body>
+  <svg width="1100" height="600" viewBox="0 0 1100 600">
+  <rect x="40" y="110" width="170" height="320" rx="30" fill="#2A2822" stroke="#8A8574" stroke-width="5"/>
+  <rect x="58" y="140" width="134" height="240" rx="12" fill="#0E0D0B"/>
+  <g class="ok">
+  <circle cx="125" cy="260" r="34" fill="#3DDC84"/><path d="M108 262l12 12 24-26" fill="none" stroke="#14130F" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/></g>
+  <g fill="none" stroke="#FFD21F" stroke-width="5"><ellipse cx="212" cy="270" rx="12" ry="56"/><ellipse cx="212" cy="270" rx="22" ry="80"/></g>
+  <text x="125" y="475" font-size="26" text-anchor="middle">READER</text><path class="fl" d="M225 215C400 120 620 120 792 215"/><path class="fl" d="M225 270L792 270"/><path class="fl" d="M225 325C400 420 620 420 792 325"/>
+  <text x="510" y="100" font-size="30" text-anchor="middle" style="fill:#FFD21F">13.56 MHz</text>
+  <circle cx="920" cy="270" r="130" fill="#17358F" stroke="#EFE7D3" stroke-width="6"/>
+  <g fill="none" stroke="#FFD21F" stroke-width="6">
+  <circle cx="920" cy="270" r="100"/>
+  <circle cx="920" cy="270" r="78"/>
+  <circle cx="920" cy="270" r="56"/></g>
+  <rect class="cp" x="892" y="252" width="56" height="36" rx="6" stroke="#EFE7D3" stroke-width="3"/>
+  <text x="920" y="438" font-size="26" text-anchor="middle">STICKER</text>
+  <text x="920" y="490" font-size="24" text-anchor="middle">POWER</text>
+  <rect x="800" y="500" width="240" height="24" rx="12" fill="none" stroke="#EFE7D3" stroke-width="3"/>
+  <rect class="pw" x="804" y="504" width="232" height="16" rx="8" fill="#3DDC84"/><path d="M225 455H790M225 441V469M790 441V469" stroke="#EFE7D3" stroke-width="4" fill="none"/>
+  <text x="510" y="495" font-size="28" text-anchor="middle">ABOUT 4 CM</text><path d="M790 570H225" stroke="#4A463A" stroke-width="3" stroke-dasharray="6 8" fill="none"/>
+  <text x="510" y="548" font-size="24" text-anchor="middle" style="fill:#3DDC84">DATA BACK</text>
+  <rect class="pk" x="780" y="562" width="20" height="16" rx="3"/>
+  <rect class="pk b" x="780" y="562" width="20" height="16" rx="3"/>
+  <rect class="pk c" x="780" y="562" width="20" height="16" rx="3"/></svg>
+</body>
+</html>

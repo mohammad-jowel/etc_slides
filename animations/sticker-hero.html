@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>sticker-hero</title>
+  <style>
+    html,body { margin:0; height:100%; overflow:hidden; background:transparent }
+    .w { position:relative; width:560px; height:560px }
+    .rg { position:absolute; left:280px; top:280px; width:220px; height:220px; margin:-110px 0 0 -110px; border-radius:50%; border:6px solid #FFD21F; opacity:0; animation:rg 3.6s ease-out infinite }
+    .rg:nth-child(2) { animation-delay:1.2s }
+    .rg:nth-child(3) { animation-delay:2.4s }
+    @keyframes rg{0%{opacity:.85;transform:scale(.7)}
+    100% { opacity:0; transform:scale(2.5) }
+    }
+    .st { position:absolute; left:80px; top:80px; width:400px; height:400px; animation:fl 4s ease-in-out infinite }
+    @keyframes fl{0%,100%{transform:translateY(0) rotate(-5deg)}
+    50% { transform:translateY(-16px) rotate(5deg) }
+    }
+    .st svg { position:absolute; left:0; top:0 }
+    .a { animation:fa 7s ease-in-out infinite }
+    .b { opacity:0; animation:fb 7s ease-in-out infinite }
+    @keyframes fa{0%,38%{opacity:1}
+    46%,90% { opacity:0 }
+    98%,100% { opacity:1 }
+    }
+    @keyframes fb{0%,38%{opacity:0}
+    46%,90% { opacity:1 }
+    98%,100% { opacity:0 }
+    }
+    .chip { animation:cp 1.4s ease-in-out infinite }
+    @keyframes cp{0%,100%{filter:none}
+    50% { filter:drop-shadow(0 0 10px #FFD21F) }
+    }
+  </style>
+</head>
+<body>
+  <div class="w">
+  <div class="rg"></div>
+  <div class="rg"></div>
+  <div class="rg"></div><div class="st">
+  <svg class="a" width="400" height="400" viewBox="0 0 400 400">
+  <circle cx="200" cy="200" r="190" fill="#FFD21F" stroke="#EFE7D3" stroke-width="10"/>
+  <g fill="none" stroke="#14130F" stroke-width="16" stroke-linecap="round"><path d="M150 150c26 32 26 68 0 100"/><path d="M200 120c40 48 40 112 0 160"/><path d="M250 90c54 64 54 156 0 220"/></g></svg>
+  <svg class="b" width="400" height="400" viewBox="0 0 400 400">
+  <circle cx="200" cy="200" r="190" fill="#EFE7D3" stroke="#FFD21F" stroke-width="10"/>
+  <g fill="none" stroke="#2B59D9" stroke-width="9">
+  <circle cx="200" cy="200" r="150"/>
+  <circle cx="200" cy="200" r="120"/>
+  <circle cx="200" cy="200" r="90"/>
+  <circle cx="200" cy="200" r="60"/></g>
+  <g class="chip">
+  <rect x="166" y="176" width="68" height="48" rx="8" fill="#F5D36A" stroke="#14130F" stroke-width="5"/><path d="M166 192h68M166 208h68M190 176v48M210 176v48" stroke="#14130F" stroke-width="3" fill="none"/></g></svg></div></div>
+</body>
+</html>

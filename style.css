@@ -1,0 +1,462 @@
+/* ==========================================================================
+   NFC Sticker – team presentation
+   Every slide is a 1920 x 1080 canvas. script.js scales the canvas to fit
+   the browser window, so all sizes below are in "canvas pixels".
+   ========================================================================== */
+
+/* ---------- Fonts (local files in /fonts, so it works offline) ---------- */
+@font-face { font-family: "Archivo";          src: url("fonts/Archivo-500-800.woff2") format("woff2"); font-weight: 500 800; font-display: swap; }
+@font-face { font-family: "Archivo Black";    src: url("fonts/ArchivoBlack-400.woff2") format("woff2"); font-weight: 400;     font-display: swap; }
+@font-face { font-family: "IBM Plex Mono";    src: url("fonts/IBMPlexMono-600.woff2") format("woff2");  font-weight: 600;     font-display: swap; }
+@font-face { font-family: "Permanent Marker"; src: url("fonts/PermanentMarker-400.woff2") format("woff2"); font-weight: 400;   font-display: swap; }
+
+/* ---------- Colours & fonts: change them here ---------- */
+:root {
+  --ink:    #14130f;   /* near-black  */
+  --cream:  #efe7d3;
+  --yellow: #ffd21f;
+  --blue:   #2b59d9;
+  --red:    #e5372b;
+  --sand:   #d8ccae;   /* darker cream, used for cards */
+  --muted:  #3a382f;   /* body text on light slides */
+
+  --font-body:   "Archivo", Arial, sans-serif;
+  --font-heavy:  "Archivo Black", Impact, sans-serif;
+  --font-mono:   "IBM Plex Mono", "Courier New", monospace;
+  --font-marker: "Permanent Marker", "Brush Script MT", cursive;
+}
+
+/* ---------- Page & stage ---------- */
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+  background: #000;
+}
+
+body { font-family: var(--font-body); }
+
+/* The scaled slide area. --scale is set by script.js */
+.deck {
+  position: fixed;
+  inset: 0;
+}
+
+.slide {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 1920px;
+  height: 1080px;
+  overflow: hidden;
+  transform: translate(-50%, -50%) scale(var(--scale, 1));
+  color: var(--fg);
+  background: var(--bg);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.38s ease, visibility 0s 0.38s;
+}
+
+.slide.is-active {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.38s ease;
+}
+
+/* Everything directly inside a slide is placed with left / top / width in
+   the HTML (style="left:128px; top:72px"). */
+.slide > * { position: absolute; }
+
+/* Slide colour themes: --bg is the background, --fg the default text colour */
+.bg-ink    { --bg: var(--ink);    --fg: var(--cream); }
+.bg-cream  { --bg: var(--cream);  --fg: var(--ink); }
+.bg-blue   { --bg: var(--blue);   --fg: var(--cream); }
+.bg-yellow { --bg: var(--yellow); --fg: var(--ink); }
+
+/* Page counter in the corner (shown briefly when the slide changes) */
+.pager {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.7);
+  color: #fff;
+  font: 12px/1.5 system-ui, sans-serif;
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+}
+.pager.is-visible { opacity: 1; }
+
+/* ==========================================================================
+   Building blocks
+   ========================================================================== */
+
+/* Small label at the top left ("INTRODUCTION", "THE STORY" ...) */
+.tag {
+  padding: 12px 22px;
+  border-radius: 6px;
+  font: 600 26px/1.4 var(--font-mono);
+  letter-spacing: 4px;
+  white-space: nowrap;
+}
+.tag--dark   { background: var(--ink);    color: var(--yellow); }
+.tag--yellow { background: var(--yellow); color: var(--ink); }
+
+/* Mono caption in a single colour (OUR IDEA, PRESENTED BY ...) */
+.caption {
+  margin: 0;
+  font: 600 26px/1.4 var(--font-mono);
+  letter-spacing: 4px;
+}
+.caption--small { font-size: 24px; }
+.caption--yellow { color: var(--yellow); }
+
+/* University logo, top right of every slide */
+.logo {
+  right: 72px;
+  top: 56px;
+  width: 330px;
+  height: 120px;
+  padding: 12px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  border: 4px solid var(--yellow);
+  border-radius: 20px;
+}
+.logo img { display: block; max-width: 100%; max-height: 100%; }
+.logo--large { width: 420px; height: 160px; padding: 18px 24px; }
+
+/* Slide headings */
+.title {
+  margin: 0;
+  font: 400 96px/1.05 var(--font-heavy);
+  white-space: nowrap;
+}
+
+/* Yellow slanted highlight strip */
+.strip {
+  margin: 0;
+  display: inline-block;
+  padding: 0 28px;
+  background: var(--yellow);
+  color: var(--ink);
+  font: 400 96px/1.1 var(--font-heavy);
+  white-space: nowrap;
+  transform: rotate(-1.5deg);
+}
+
+/* Hand-written "sticky note" with a red shadow */
+.note {
+  margin: 0;
+  padding: 14px 26px;
+  background: var(--ink);
+  color: var(--yellow);
+  border-radius: 8px;
+  box-shadow: 6px 6px 0 var(--red);
+  font: 400 44px/1.2 var(--font-marker);
+  transform: rotate(-3deg);
+}
+
+/* Normal paragraph text */
+.text {
+  margin: 0;
+  font: 700 42px/1.35 var(--font-body);
+  color: var(--muted);
+}
+
+/* Sticker-style button/label with a hard shadow (slide 2) */
+.chip {
+  margin: 0;
+  padding: 14px 24px;
+  border: 4px solid var(--ink);
+  border-radius: 10px;
+  box-shadow: 6px 6px 0 var(--ink);
+  font: 400 30px/1.2 var(--font-heavy);
+  white-space: nowrap;
+  width: fit-content;
+}
+.chip--yellow { background: var(--yellow); color: var(--ink); }
+.chip--blue   { background: var(--blue);   color: var(--cream); }
+.chip--ink    { background: var(--ink);    color: var(--cream); box-shadow: 6px 6px 0 var(--red); }
+
+/* Round number badge */
+.badge {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--ink);
+  color: var(--yellow);
+  font: 400 30px/1 var(--font-heavy);
+}
+.badge--yellow { background: var(--yellow); color: var(--ink); }
+.badge--large  { width: 80px; height: 80px; font-size: 44px; }
+
+/* Horizontal black line */
+.rule { height: 3px; background: var(--ink); }
+
+/* Animated illustrations (small HTML files in /animations) */
+.animation {
+  border: 0;
+  background: transparent;
+  pointer-events: none;
+}
+
+/* ==========================================================================
+   Slide 1 – cover
+   ========================================================================== */
+.cover-name {
+  width: 520px;
+  height: 144px;
+  padding: 20px 24px;
+  border: 4px solid var(--cream);
+  border-radius: 16px;
+}
+.cover-name strong {
+  display: block;
+  font: 800 25px/1.2 var(--font-body);
+}
+.cover-name span {
+  display: block;
+  margin-top: 20px;
+  font: 600 26px/1.4 var(--font-mono);
+  color: var(--yellow);
+}
+
+/* ==========================================================================
+   Cards (slides 4 and 10): 3 columns, 2 rows
+   ========================================================================== */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(3, 528px);
+  gap: 40px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.card {
+  padding: 24px 32px;
+  border: 4px solid var(--ink);
+  border-radius: 14px;
+  box-shadow: 8px 8px 0 var(--ink);
+  background: var(--sand);
+  color: var(--ink);
+}
+.card--cream  { background: var(--cream); }
+.card--yellow { background: var(--yellow); }
+.card--blue   { background: var(--blue);   color: var(--cream); }
+.card--ink    { background: var(--ink);    color: var(--cream); box-shadow: 8px 8px 0 var(--yellow); }
+
+.card h3 { margin: 0; font-weight: 400; font-family: var(--font-heavy); }
+.card p  { margin: 0; font: 700 30px/1.3 var(--font-body); }
+
+/* slide 4: year + sentence */
+.cards--years { gap: 50px 40px; }
+.cards--years .card { height: 300px; }
+.cards--years h3 { font-size: 64px; line-height: 1; color: var(--blue); }
+.cards--years .card--yellow h3 { color: var(--ink); }
+.cards--years p { margin-top: 26px; }
+
+/* slide 10: short heading + sentence */
+.cards--features { gap: 58px 40px; }
+.cards--features .card { height: 262px; }
+.cards--features h3 { font-size: 38px; line-height: 1.1; }
+.cards--features p { margin-top: 30px; }
+.card--ink h3 { color: var(--yellow); }
+
+/* ==========================================================================
+   Slide 3 – timeline
+   ========================================================================== */
+.timeline {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  width: 992px;
+}
+.timeline li {
+  position: relative;
+  height: 140px;
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  align-items: start;
+  color: var(--ink);
+}
+.timeline li:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 120px;
+  height: 3px;
+  background: var(--ink);
+}
+.timeline b {
+  font: 400 64px/1 var(--font-heavy);
+}
+.timeline .is-modern b { color: var(--blue); }
+.timeline p {
+  margin: 6px 0 0;
+  max-width: 752px;
+  font: 700 32px/1.3 var(--font-body);
+}
+
+/* ==========================================================================
+   Slide 5 – definition
+   ========================================================================== */
+.definition {
+  width: 800px;
+  height: 550px;
+  padding: 32px 40px;
+  background: var(--yellow);
+  color: var(--ink);
+  border-radius: 16px;
+}
+.definition p:last-child {
+  margin: 4px 0 0;
+  font: 700 38px/1.35 var(--font-body);
+}
+
+.info-list {
+  width: 812px;
+  display: grid;
+  gap: 24px;
+}
+.info {
+  height: 168px;
+  padding: 19px 29px;
+  border: 3px solid var(--cream);
+  border-radius: 14px;
+}
+.info p:not(.caption) {
+  margin: 0;
+  font: 700 30px/1.3 var(--font-body);
+}
+
+/* ==========================================================================
+   Slide 6 – parts list
+   ========================================================================== */
+.photo-slot {
+  width: 330px;
+  height: 400px;
+  background: var(--sand);
+  border: 6px solid var(--ink);
+  border-radius: 24px;
+  box-shadow: 10px 10px 0 var(--ink);
+  overflow: hidden;
+}
+.photo-slot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+.parts {
+  width: 762px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.parts li {
+  position: relative;
+  height: 132px;
+  padding-left: 78px;
+  color: var(--ink);
+}
+.parts li:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 116px;
+  height: 3px;
+  background: var(--ink);
+}
+.parts .badge { position: absolute; left: 0; top: 2px; }
+.parts h3 { margin: 0; font: 400 36px/1.15 var(--font-heavy); }
+.parts p  { margin: 9px 0 0; font: 500 26px/1.3 var(--font-body); color: var(--muted); }
+
+/* ==========================================================================
+   Slides 7 and 9 – numbered steps
+   ========================================================================== */
+.steps {
+  width: 502px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.steps li {
+  position: relative;
+  height: 150px;
+  padding-left: 76px;
+}
+.steps .badge { position: absolute; left: 0; top: 4px; }
+.steps p:not(.caption) {
+  margin: 0;
+  font: 700 30px/1.3 var(--font-body);
+}
+
+.demo-steps {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.demo-steps li {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  height: 80px;
+  margin-bottom: 70px;
+  font: 800 44px/1.2 var(--font-body);
+}
+
+/* ==========================================================================
+   Slide 11 – conclusion
+   ========================================================================== */
+.takeaways {
+  width: 1148px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.takeaways li {
+  position: relative;
+  height: 150px;
+  margin-bottom: 70px;
+  padding-left: 48px;
+  font: 800 54px/1.2 var(--font-body);
+}
+.takeaways li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 4px;
+  width: 16px;
+  height: 150px;
+  background: var(--yellow);
+}
+
+/* ==========================================================================
+   Printing: one slide per page
+   ========================================================================== */
+@page { size: 1920px 1080px; margin: 0; }
+
+@media print {
+  html, body { height: auto; overflow: visible; background: none; }
+  .deck { position: static; }
+  .slide {
+    position: relative;
+    left: 0;
+    top: 0;
+    transform: none;
+    opacity: 1;
+    visibility: visible;
+    break-after: page;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .pager { display: none; }
+}

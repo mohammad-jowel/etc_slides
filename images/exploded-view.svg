@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" aria-label="Exploded view of an NFC sticker showing four layers: face label, antenna coil with chip, base layer and adhesive" width="480" height="600" viewBox="0 0 480 600">
+<path d="M50 490v18a190 62 0 0 0 380 0v-18z" fill="#B02A20" stroke="#14130F" stroke-width="6" stroke-linejoin="round"/>
+<ellipse cx="240" cy="490" rx="190" ry="62" fill="#E5372B" stroke="#14130F" stroke-width="6"/>
+<path d="M50 118V230M430 118V230M50 248V360M430 248V360M50 378V490M430 378V490" stroke="#14130F" stroke-width="3" stroke-dasharray="8 8" fill="none"/>
+<path d="M50 360v18a190 62 0 0 0 380 0v-18z" fill="#BFB28F" stroke="#14130F" stroke-width="6" stroke-linejoin="round"/>
+<ellipse cx="240" cy="360" rx="190" ry="62" fill="#D8CCAE" stroke="#14130F" stroke-width="6"/>
+<path d="M50 230v18a190 62 0 0 0 380 0v-18z" fill="#D8CCAE" stroke="#14130F" stroke-width="6" stroke-linejoin="round"/>
+<ellipse cx="240" cy="230" rx="190" ry="62" fill="#EFE7D3" stroke="#14130F" stroke-width="6"/>
+<g fill="none" stroke="#2B59D9" stroke-width="6"><ellipse cx="240" cy="230" rx="150" ry="46"/><ellipse cx="240" cy="230" rx="115" ry="34"/><ellipse cx="240" cy="230" rx="80" ry="22"/></g>
+<rect x="214" y="216" width="52" height="28" rx="5" fill="#F5D36A" stroke="#14130F" stroke-width="4"/>
+<path d="M50 100v18a190 62 0 0 0 380 0v-18z" fill="#C9A400" stroke="#14130F" stroke-width="6" stroke-linejoin="round"/>
+<ellipse cx="240" cy="100" rx="190" ry="62" fill="#FFD21F" stroke="#14130F" stroke-width="6"/>
+<g fill="none" stroke="#14130F" stroke-width="7" stroke-linecap="round"><path d="M210 82c10 12 10 24 0 36"/><path d="M236 74c14 16 14 36 0 52"/><path d="M262 66c18 20 18 48 0 68"/></g>
+</svg>

@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>thank-you</title>
+  <style>
+    html,body { margin:0; height:100%; overflow:hidden; background:transparent }
+    svg { display:block }
+    .fl { transform-origin:280px 280px; animation:fl 3s ease-in-out infinite }
+    @keyframes fl{0%,100%{transform:translateY(0) rotate(-3deg)}
+    50% { transform:translateY(-22px) rotate(3deg) }
+    }
+    .rg { fill:none; stroke:#FFD21F; stroke-width:5; transform-origin:280px 280px; animation:rg 2.4s ease-out infinite }
+    .rg.b { animation-delay:.8s }
+    .rg.c { animation-delay:1.6s }
+    @keyframes rg{0%{transform:scale(.7);opacity:.9}
+    100% { transform:scale(1.25); opacity:0 }
+    }
+  </style>
+</head>
+<body>
+  <svg width="560" height="560" viewBox="0 0 560 560">
+  <circle class="rg" cx="280" cy="280" r="200"/>
+  <circle class="rg b" cx="280" cy="280" r="200"/>
+  <circle class="rg c" cx="280" cy="280" r="200"/>
+  <g class="fl">
+  <circle cx="280" cy="280" r="150" fill="#FFD21F" stroke="#EFE7D3" stroke-width="8"/>
+  <g fill="none" stroke="#14130F" stroke-width="14" stroke-linecap="round"><path d="M232 244c18 24 18 48 0 72"/><path d="M280 220c26 36 26 84 0 120"/><path d="M328 196c34 48 34 120 0 168"/></g></g></svg>
+</body>
+</html>

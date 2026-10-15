@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>tap-demo</title>
+  <style>
+    html,body { margin:0; height:100%; overflow:hidden; background:transparent }
+    svg { display:block }
+    text { font-family:Impact,Arial,sans-serif; font-weight:bold }
+    .ph { animation:ph 5s ease-in-out infinite }
+    @keyframes ph{0%,8%{transform:translateX(0)}
+    35%,80% { transform:translateX(150px) }
+    95%,100% { transform:translateX(0) }
+    }
+    .rg { fill:none; stroke:#FFD21F; stroke-width:5; transform-origin:460px 330px; opacity:0; animation:rg 5s ease-out infinite }
+    .rg.b { animation-delay:.25s }
+    @keyframes rg{0%,36%{transform:scale(.9);opacity:0}
+    38% { opacity:.9 }
+    55% { transform:scale(1.9); opacity:0 }
+    100% { transform:scale(1.9); opacity:0 }
+    }
+    .ok { transform-origin:245px 330px; opacity:0; animation:ok 5s ease-in-out infinite }
+    @keyframes ok{0%,44%{opacity:0;transform:scale(.3)}
+    50%,80% { opacity:1; transform:scale(1) }
+    90%,100% { opacity:0; transform:scale(1) }
+    }
+    .cf { opacity:0; transform-box:fill-box; transform-origin:center; animation:cf 5s ease-out infinite }
+    @keyframes cf{0%,44%{opacity:0;transform:translate(0,0) rotate(0)}
+    48% { opacity:1 }
+    85% { opacity:1; transform:translate(var(--x),var(--y)) rotate(var(--r)) }
+    95%,100% { opacity:0; transform:translate(var(--x),var(--y)) rotate(var(--r)) }
+    }
+    .sx { opacity:0; animation:sx 5s ease-in-out infinite }
+    @keyframes sx{0%,46%{opacity:0}
+    52%,82% { opacity:1 }
+    92%,100% { opacity:0 }
+    }
+  </style>
+</head>
+<body>
+  <svg width="692" height="660" viewBox="0 0 692 660">
+  <circle class="rg" cx="460" cy="330" r="110"/>
+  <circle class="rg b" cx="460" cy="330" r="110"/>
+  <circle cx="460" cy="330" r="110" fill="#FFD21F" stroke="#EFE7D3" stroke-width="6"/>
+  <g fill="none" stroke="#14130F" stroke-width="10" stroke-linecap="round"><path d="M418 306c16 20 16 40 0 60"/><path d="M458 292c22 26 22 70 0 96"/><path d="M498 278c28 32 28 92 0 128"/></g>
+  <g class="ph">
+  <rect x="20" y="170" width="170" height="320" rx="30" fill="#2A2822" stroke="#8A8574" stroke-width="6"/>
+  <rect x="38" y="200" width="134" height="260" rx="12" fill="#0E0D0B"/>
+  <g class="ok">
+  <circle cx="105" cy="330" r="40" fill="#3DDC84"/><path d="M85 332l14 14 28-30" fill="none" stroke="#14130F" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/></g></g>
+  <rect class="cf" x="450" y="320" width="20" height="12" fill="#E5372B" style="--x:-120px;--y:-200px;--r:200deg"/>
+  <rect class="cf" x="450" y="320" width="20" height="12" fill="#2B59D9" style="--x:150px;--y:-220px;--r:-160deg"/>
+  <rect class="cf" x="450" y="320" width="20" height="12" fill="#FFD21F" style="--x:220px;--y:-80px;--r:240deg"/>
+  <rect class="cf" x="450" y="320" width="20" height="12" fill="#3DDC84" style="--x:-180px;--y:-90px;--r:-220deg"/>
+  <rect class="cf" x="450" y="320" width="20" height="12" fill="#EFE7D3" style="--x:60px;--y:-260px;--r:180deg"/>
+  <rect class="cf" x="450" y="320" width="20" height="12" fill="#E5372B" style="--x:200px;--y:120px;--r:-200deg"/>
+  <rect class="cf" x="450" y="320" width="20" height="12" fill="#FFD21F" style="--x:-60px;--y:-250px;--r:150deg"/>
+  <rect class="cf" x="450" y="320" width="20" height="12" fill="#2B59D9" style="--x:-200px;--y:60px;--r:210deg"/>
+  <rect class="cf" x="450" y="320" width="20" height="12" fill="#3DDC84" style="--x:110px;--y:200px;--r:-140deg"/>
+  <rect class="cf" x="450" y="320" width="20" height="12" fill="#EFE7D3" style="--x:-140px;--y:170px;--r:170deg"/>
+  <text class="sx" x="346" y="600" font-size="84" text-anchor="middle" fill="#3DDC84">SUCCESS!</text></svg>
+</body>
+</html>
