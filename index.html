@@ -148,12 +148,25 @@
     <span class="badge" style="left:138px; top:602px">4</span>
     <span class="badge" style="left:138px; top:732px">5</span>
 
-    <!-- Photo of the team's own sticker.
-         To add one: put the file in /images and uncomment the <img> line. -->
+    <!-- The team's sticker. To use a real photo instead, replace the <svg> with:
+         <img src="images/our-sticker.jpg" alt="Our NFC sticker"> -->
     <div class="photo-slot" style="left:660px; top:290px">
-      <!-- <img src="images/our-sticker.jpg" alt="Our NFC sticker"> -->
+      <svg viewBox="0 0 318 388" role="img" aria-label="Yellow NFC sticker with radio waves" width="100%" height="100%">
+        <!-- radio rings -->
+        <g fill="none" stroke="#2b59d9" stroke-width="5" opacity=".35">
+          <circle cx="159" cy="194" r="140"/>
+          <circle cx="159" cy="194" r="122"/>
+        </g>
+        <!-- sticker -->
+        <circle cx="159" cy="194" r="104" fill="#ffd21f" stroke="#14130f" stroke-width="8"/>
+        <g fill="none" stroke="#14130f" stroke-width="12" stroke-linecap="round">
+          <path d="M121 168c14 18 14 36 0 52"/>
+          <path d="M159 148c22 30 22 70 0 100"/>
+          <path d="M197 128c30 42 30 102 0 144"/>
+        </g>
+      </svg>
     </div>
-    <p class="caption" style="left:660px; top:722px; color:var(--ink)">OUR STICKER</p>
+    <p class="caption" style="left:660px; top:722px; color:var(--ink)">NFC TAG</p>
 
     <ol class="parts" style="left:1030px; top:278px">
       <li><span class="badge">1</span><h3>FACE LABEL</h3><p>Shows the design and protects what is inside.</p></li>
